@@ -1,0 +1,43 @@
+### IRSYNC server properties ###
+server:
+  address: 127.0.0.1
+  port: 9000
+  use-forward-headers: true
+
+# IRSYNC scheduling properties
+cron:
+  syncRate: 1200000
+
+server.servlet:
+  context-path: /
+  use-forward-headers: true
+
+logging:
+  path : logs
+  file: ${logging.path}/eux-rina-irsync.log
+  level:
+    root: INFO
+  pattern:
+    file: "%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n"
+    console: "%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger.%M - %msg%n"
+
+
+  ### Spring properties ###
+spring:
+  output:
+  ansi:
+    enabled: DETECT
+
+spring.main.banner-mode: 'off'
+spring.metrics.web.server.auto-time-requests: true
+
+### Metrics ###
+management.endpoints.web.exposure.include: info, health, metrics, prometheus, conditions
+management.metrics.export.prometheus.enabled: true
+
+rina.tenants:
+  - institutionId: NO:889640782
+    casBaseUrl: http://localhost/eessiCas
+    cpiBaseUrl: http://localhost/eessiRest
+    adminuser: admin
+    adminpwd: admin123

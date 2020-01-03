@@ -1,0 +1,42 @@
+cron:
+  syncRate: 300000
+
+### Server properties ###
+server:
+  port : 9000
+  use-forward-headers: true
+
+
+server.servlet:
+  use-forward-headers: true
+
+
+logging:
+  file: logs\irsync.log
+  level:
+    root: INFO
+
+spring:
+  output:
+  ansi:
+    enabled: DETECT
+
+### Spring properties ###
+spring.main.banner-mode: 'off'
+spring.metrics.web.server.auto-time-requests: true
+
+### Metrics ###
+management.endpoints.web.exposure.include: info, health, metrics, prometheus, conditions
+management.metrics.export.prometheus.enabled: true
+
+
+rina.tenants:
+- institutionId: NO:NAVT002
+  casBaseUrl: https://rina-oppl-utv004.adeo.no/eessiCas
+  cpiBaseUrl: https://rina-oppl-utv004.adeo.no/eessiRest
+
+- institutionId: NO:NAVT003
+  casBaseUrl: https://rina-oppl-utv005.adeo.no/eessiCas
+  cpiBaseUrl: https://rina-oppl-utv005.adeo.no/eessiRest
+
+logging.level.no.nav.eux: DEBUG
