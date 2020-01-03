@@ -8,11 +8,22 @@ Small app offering scheduled RINA IR SYNC (and a REST API with Swagger) using RI
 
 ## quickstart
 
+* you want this directory structure
+```
+eux-rina-irsync/
+├── config/
+│   ├── application.yml
+├── log/
+│  
+└── eux-rina-irsync-0.9.4-SNAPSHOT.jar
+```
 * download the eux-rina-irsync-0.9.4-SNAPSHOT.jar
 * download config/application.yml
 * adopt config/application.yml to your environment
-* run "java -Djava.util.concurrent.ForkJoinPool.common.parallelism=16 -jar eux-rina-irsync-0.9.4-SNAPSHOT.jar"
-
+* run 
+```bash
+java -Djava.util.concurrent.ForkJoinPool.common.parallelism=16 -jar eux-rina-irsync-0.9.4-SNAPSHOT.jar
+```
   
 ## known shortcomings
 
@@ -36,7 +47,8 @@ cron:
   
 ## TODOs
 
-* Hm?
+* http://nssm.cc/ Windows service implementation (small configuration job, coming in early January 2020)
+* Ubuntu service implementation
 * Reintroduce support for multiple RINAs
 * or
 * remove the possibly complicated code and config for admin username and password.
