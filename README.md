@@ -8,12 +8,12 @@ Small app offering scheduled RINA IR SYNC (and a REST API with Swagger) using RI
 
 ## quickstart
 
-* you want this directory structure
+* you want this directory structure, including an empty logs directory
 ```
 eux-rina-irsync/
 ├── config/
 │   ├── application.yml
-├── log/
+├── logs/
 │  
 └── eux-rina-irsync-0.9.4-SNAPSHOT.jar
 ```
