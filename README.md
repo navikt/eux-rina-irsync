@@ -5,6 +5,11 @@ Small app offering scheduled RINA IR SYNC (and a REST API with Swagger) using RI
 ## main functionality
 
 * sync IR
+
+* place and adapt your configuration into config/application.yml
+
+* then run "java -Djava.util.concurrent.ForkJoinPool.common.parallelism=16 -jar eux-rina-irsync-0.9.4-SNAPSHOT.jar"
+
   
 ## known shortcomings
 
