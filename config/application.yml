@@ -1,10 +1,10 @@
-### IRSYNC server properties ###
+### IRSYNC server properties DO NOT CHANGE address, because this is a loopback call to the IR SYNC module itself ###
 server:
   address: 127.0.0.1
   port: 9000
   use-forward-headers: true
 
-# IRSYNC scheduling properties
+# IRSYNC scheduling properties in seconds
 cron:
   syncRate: 1200000
 
@@ -35,6 +35,7 @@ spring.metrics.web.server.auto-time-requests: true
 management.endpoints.web.exposure.include: info, health, metrics, prometheus, conditions
 management.metrics.export.prometheus.enabled: true
 
+## change this to your RINA setting, RINA can run on a different server, you can change localhost to the host
 rina.tenants:
   - institutionId: NO:889640782
     casBaseUrl: http://localhost/eessiCas
