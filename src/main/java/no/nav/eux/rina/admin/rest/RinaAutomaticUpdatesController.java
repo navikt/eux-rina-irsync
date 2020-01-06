@@ -47,7 +47,7 @@ public class RinaAutomaticUpdatesController {
     @Scheduled (fixedRateString = "${cron.syncRate}", initialDelay = 90000)
     public void scheduledAutomaticUpdate() {
         String url = "http://" + serverHostname + ":" + Integer.valueOf(serverPort) + "/rina/ir/silentUpdate";
-        log.info("running scheduled to ["+url+"]");
+        log.debug("running scheduled to ["+url+"]");
         RestTemplate restTemplate = restTemplateFactory.getObject();
         ResponseEntity<Void> response = restTemplate.getForEntity(url, Void.class);
     }
@@ -55,7 +55,7 @@ public class RinaAutomaticUpdatesController {
     @ApiOperation (value = "Silent automatic update")
     @GetMapping ("/silentUpdate")
     public void silentUpdate() {
-        log.info("calling automaticUpdate() and discarding the result...");
+        log.debug("calling automaticUpdate() and discarding the result...");
         automaticUpdate();
     }
     
@@ -63,15 +63,15 @@ public class RinaAutomaticUpdatesController {
     @GetMapping ("/automaticUpdate")
     public ResponseEntity<Map<String, Map<String, String>>> automaticUpdate() {
         this.orderNewInstitutionVersions();
-        log.info("Waiting for 4  minutes for new versions to arrive in RINAs");
+        log.debug("Waiting for 4  minutes for new versions to arrive in RINAs");
         try {
             Thread.sleep(240000);
         } catch (InterruptedException e) {
             log.error("Somebody woke me up! " + e.getMessage());
         }
-        log.info("Done waiting. Installing new versions.");
+        log.debug("Done waiting. Installing new versions.");
         this.installNewInstitutionVersion();
-        log.info("Done installing.");
+        log.debug("Done installing.");
         
         List<String> institutions = new ArrayList<>(rinaCpiSynchronizationsServiceMap.keySet());
         Map<String, Map<String, String>> resultVersions = institutions.stream()
@@ -152,16 +152,13 @@ public class RinaAutomaticUpdatesController {
                             resultCiVersions.put("AVAILABLE", availableVersion.toString());
                             
                             if (installedVersion.withClearedSuffixAndBuild().isLowerThan(availableVersion.withClearedSuffixAndBuild())) {
-                                log.info("CI: " + ci + " OUT OF DATE : availableVersion " + availableVersion + " is newer / greater than " + installedVersion);
+                                log.info("CI: " + ci + " OUT OF DATE : installedVersion  " + installedVersion + " < availableVersion " + availableVersion);
                                 log.info("CI: " + ci + " Installing now... resource version: " + availableVersion);
                                 getRinaCpiSynchronizationsService(ci)
                                         .updateResource(resourceId, resourceType, availableVersion.toString());
-                                
-                                // getRinaCpiSynchronizationsService(institutionId).updateResource(resourceId, resourceType, resourceVersion);
-                                
-                                log.info("CI: " + ci + " Installed resourceId[" + resourceId + "] resourceType [" + resourceType + "] resourceVersion [" + availableVersion + "]");
+                                log.debug("CI: " + ci + " Installed resourceId[" + resourceId + "] resourceType [" + resourceType + "] resourceVersion [" + availableVersion + "]");
                             } else {
-                                log.info(" UP TO DATE : " + ci + " installedVersion " + installedVersion + " is GREATER THAN OR EQUAL TO available " + availableVersion);
+                                log.info(" UP TO DATE : " + ci + " installedVersion " + installedVersion + " >= availableVersion " + availableVersion);
                             }
                             return resultCiVersions;
                         }));
@@ -185,7 +182,7 @@ public class RinaAutomaticUpdatesController {
             SyncInitialDocumentDto dto = getRinaCpiSynchronizationsService(ci).getInititalDocument();
             setIrVersionInSYN002(getRinaCpiSynchronizationsService(ci).getInititalDocument(), ver);
             try {
-                log.info("Requesting version [" + ver + "|as|" + getCurrentIrVersionFromSYN002(dto) + "] for CI [" + ci + "]");
+                log.debug("Requesting version [" + ver + "|as|" + getCurrentIrVersionFromSYN002(dto) + "] for CI [" + ci + "]");
                 getRinaCpiSynchronizationsService(ci).submitDocumentIR(dto.getInitialDocument());
             } catch (Exception e) {
                 log.error("Could not submit IR sync request! " + e.getMessage());

@@ -8,6 +8,8 @@ import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+/* This class is only used by {@link no.nav.eux.rina.admin.rest.RinaAutomaticUpdatesController.Class } to all itself with correct username and password */
+
 @Component
 public class RestTemplateFactory implements FactoryBean<RestTemplate>, InitializingBean {
   @Value("${server.port}")
@@ -24,8 +26,6 @@ public class RestTemplateFactory implements FactoryBean<RestTemplate>, Initializ
   public RestTemplateFactory() {
     super();
   }
-  
-  // API
   
   @Override
   public RestTemplate getObject() {

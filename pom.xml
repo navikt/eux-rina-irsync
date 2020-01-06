@@ -13,7 +13,7 @@
 
   <groupId>no.nav.eux</groupId>
   <artifactId>eux-rina-irsync</artifactId>
-  <version>0.9.4-SNAPSHOT</version>
+  <version>0.9.5-SNAPSHOT</version>
   <name>eux-rina-irsync</name>
   <description>simple rest API for RINA IR SYNC automation</description>
   <packaging>jar</packaging>

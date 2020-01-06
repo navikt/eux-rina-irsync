@@ -24,23 +24,18 @@ import static no.nav.eux.rina.admin.rest.ExceptionUtil.notFound;
 
 @Slf4j
 public class RinaCpiSynchronizationService {
-  //Changed from pre Nov 2018 Release of Rina
-  //Keep for doc purposes - it is not working so have to use old impl class for now
-  //public static final String NIE_CLIENT_IMPL_CLASS ="eu.ec.dgempl.nieclient.ms.client.NieServiceClientImpl";
-  public static final String NIE_CLIENT_IMPL_CLASS = "eu.ec.dgempl.nieclient.NieClientImpl";
+
   private RinaTenant rinaTenant;
   private SynchronizationsApi syncApi;
   private ResourcesApi resourcesApi;
   
-  public RinaCpiSynchronizationService(RinaTenant rinaTenant,
-                                       RinaCpiAuthenticationService rinaCpiAuthenticationService,
-                                       InboundHttpHeaders inboundHttpHeaders) {
+  public RinaCpiSynchronizationService(RinaTenant rinaTenant, RinaCpiAuthenticationService rinaCpiAuthenticationService, InboundHttpHeaders inboundHttpHeaders) {
     this.rinaTenant = rinaTenant;
     RinaCpiClient rinaCpiClient = new RinaCpiClient();
     rinaCpiClient.setBasePath(rinaTenant.getCpiBaseUrl());
-    rinaCpiClient.getRestTemplate().getInterceptors()
-      .add(new RinaCpiAuthenticationClientInterceptor(rinaTenant, rinaCpiAuthenticationService,
-        inboundHttpHeaders));
+    rinaCpiClient.getRestTemplate()
+            .getInterceptors()
+            .add(new RinaCpiAuthenticationClientInterceptor(rinaTenant, rinaCpiAuthenticationService,inboundHttpHeaders));
     syncApi = new SynchronizationsApi(rinaCpiClient);
     resourcesApi = new ResourcesApi(rinaCpiClient);
   }
@@ -62,7 +57,7 @@ public class RinaCpiSynchronizationService {
     log.debug("rinaTenant.institutionId = [" + ci + "]");
     Map<String, String> resultCiVersions = new HashMap<>();
     Semver syn002Version = new Semver(getCurrentIrVersionFromSYN002(getInititalDocument()), Semver.SemverType.STRICT);
-    // syn002Version seems ALWAYS to be identical availableVersion.withClearedSuffixAndBuild()
+    // syn002Version seems to be ALWAYS identical availableVersion.withClearedSuffixAndBuild()
     resultCiVersions.put("SYN002", syn002Version.toString());
     
     ResourceDto installedDto = getResources("SERVER", true, Collections.singletonList("organisation")).stream()
@@ -78,14 +73,10 @@ public class RinaCpiSynchronizationService {
     resultCiVersions.put("AVAILABLE", availableVersion.toString());
     
     if (installedVersion.withClearedSuffixAndBuild().isLowerThan(availableVersion.withClearedSuffixAndBuild())) {
-      log.info("CI: " + ci + " OUT OF DATE : availableVersion " + availableVersion + " is newer / greater than " + installedVersion);
+      log.debug("CI: " + ci + " OUT OF DATE : installedVersion " + installedVersion + " < availableVersion " + availableVersion);
       resultCiVersions.put("ACTION", "UPDATE");
-    //  log.info("CI: " + ci + " Installing now... resource version: " + availableVersion);
-    //  getRinaCpiSynchronizationsService(ci)
-    //    .updateResource(resourceId, resourceType, availableVersion.toString());
-    //  log.info("CI: " + ci + " Installed resourceId[" + resourceId + "] resourceType [" + resourceType + "] resourceVersion [" + availableVersion + "]");
     } else {
-      log.info(" UP TO DATE : " + ci + " installedVersion " + installedVersion + " is GREATER THAN or EUQAL TO available " + availableVersion);
+      log.debug(" UP TO DATE : " + ci + " installedVersion " + installedVersion + " >= availableVersion " + availableVersion);
       resultCiVersions.put("ACTION", "NONE");
     }
     return resultCiVersions;
@@ -95,6 +86,7 @@ public class RinaCpiSynchronizationService {
     return resourcesApi.getResources(resourceLocation, hardRefresh, resourceIds);
   }
   
+  /* this is the method that performs the actual installation of a new version */
   public void updateResource(String resourceId, String resourceType, String resourceVersion) {
     try {
       resourcesApi.updateResource(resourceId, resourceType, resourceVersion);
@@ -106,7 +98,7 @@ public class RinaCpiSynchronizationService {
   public String getUsernameAndPassword() {
     String ci = rinaTenant.getInstitutionId();
     String result = "[" + ci + "] un =[" + rinaTenant.getAdminuser() + "]  pw =[" + rinaTenant.getAdminpwd()  + "]";
-    log.info("rinaTenant.institutionId = " + result);
+    log.debug("rinaTenant.institutionId = " + result);
     return result;
   }
   
