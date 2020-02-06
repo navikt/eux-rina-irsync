@@ -112,11 +112,22 @@ cron:
   
 * currently, only one RINA can be addressed. Full EUX RINA ADMIN supports many RINAs called "tenants" in application.yml.
   IR SYNC only supports one, because of how we use admin username and password in our TEST and ACCEPTANCE environments. 
-  
+
+## Windows service implementation
+
+* We use 
+```
+nssm install IRSYNC "%JAVA_HOME%"\bin\java.exe -Djava.util.concurrent.ForkJoinPool.common.parallelism=16 -jar "%CD%\eux-rina-irsync-0.9.5-SNAPSHOT.jar"
+
+nssm set IRSYNC AppDirectory "%CD%"
+
+nssm edit IRSYNC
+```
+
 ## TODOs
 
-* http://nssm.cc/ Windows service implementation (small configuration job, coming in early January 2020)
 * Ubuntu service implementation
 * Reintroduce support for multiple RINAs
 * or
 * remove the possibly complicated code and config for admin username and password.
+* example of the already supported encrypted storage of admin username and password.
