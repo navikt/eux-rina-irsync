@@ -44,7 +44,8 @@ public class RinaAutomaticUpdatesController {
         this.rinaCpiSynchronizationsServiceMap = rinaCpiSynchronizationsServiceMap;
     }
     
-    @Scheduled (fixedRateString = "${cron.syncRate}", initialDelay = 90000)
+    //@Scheduled (cron = "0 15 4-7 * * *")  // run 15 minutes past the hour between 4 and 7 o'clock every day.
+    @Scheduled(cron = "${cron.expression}")
     public void scheduledAutomaticUpdate() {
         String url = "http://" + serverHostname + ":" + Integer.valueOf(serverPort) + "/rina/ir/silentUpdate";
         log.debug("running scheduled to ["+url+"]");
