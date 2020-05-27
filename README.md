@@ -17,9 +17,9 @@ eux-rina-irsync/
 │   ├── application.yml
 ├── logs/
 │  
-└── eux-rina-irsync-0.9.4-SNAPSHOT.jar
+└── eux-rina-irsync-5.6.2-SNAPSHOT.jar
 ```
-* download the eux-rina-irsync-0.9.4-SNAPSHOT.jar
+* download the eux-rina-irsync-5.6.2-SNAPSHOT.jar
 * download config/application.yml
 * adopt config/application.yml to your environment
 * run 
@@ -95,14 +95,14 @@ and eventually stuff like this
   
 ## known shortcomings
 
-* this version assumes that it takes less than four minutes to request potentially new IR content from your AP, i.e. that your anti-
-  malware does not take more than four minutes. If it does, don't worry, eux-rina-irsync will pick up the message on the next pass after
-  20 minutes.
-  
-* The above mentioned four minutes cannot be configured, the 20 minutes can, see application.yml 
-IRSYNC scheduling properties
+ IRSYNC scheduling cron expression
+ CSN pushes IR to APs at 4 CET/CEST, so polling for IR from RINA at 15 minutes past the hour between 4 and 6 o'clock is OK
 cron:
-  syncRate: 1200000
+  expression: 0 15 4-6 * * *
+
+ IRSYNC wait for new IR contents from AP in seconds
+update:
+  wait: 240
   
 * eux-rina-irsync needs the RINA CPI SDK patches from ResourcesApi.path in order to work. They are included in the source here at
   eu.ec.dgempl.eessi... and compiled into the fat jar if you use e.g. maven install.
