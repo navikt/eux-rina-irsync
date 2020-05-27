@@ -29,7 +29,6 @@ spring.metrics.web.server.auto-time-requests: true
 management.endpoints.web.exposure.include: info, health, metrics, prometheus, conditions
 management.metrics.export.prometheus.enabled: true
 
-
 rina.tenants:
 - institutionId: NO:NAVT002
   casBaseUrl: https://rina-oppl-utv004.adeo.no/eessiCas
