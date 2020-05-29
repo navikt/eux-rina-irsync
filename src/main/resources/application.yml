@@ -2,24 +2,22 @@
 server:
   address: 127.0.0.1
   port: 9000
-  use-forward-headers: true
+  forward-headers-strategy: native
+  servlet:
+    context-path: /
 
-# IRSYNC scheduling properties
+# IRSYNC scheduling cron expression
+# CSN pushes IR to APs at 4 CET/CEST, so polling for IR from RINA at 15 minutes past the hour between 4 and 6 o'clock is OK
 cron:
-  syncRate: 1200000
+  expression: 0 15 4-6 * * *
 
-server.servlet:
-  context-path: /
-  use-forward-headers: true
+# IRSYNC wait for new IR contents from AP in seconds
+update:
+  wait: 240
 
 logging:
-  path : logs
-  file: ${logging.path}/eux-rina-irsync.log
-  level:
-    root: INFO
-  pattern:
-    file: "%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n"
-    console: "%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger.%M - %msg%n"
+  config:
+    file: .\config\logback-spring.xml
 
 
   ### Spring properties ###
