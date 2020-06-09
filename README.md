@@ -15,12 +15,13 @@ Small app offering scheduled RINA IR SYNC (and a REST API with Swagger) using RI
 eux-rina-irsync/
 ├── config/
 │   ├── application.yml
+│   ├── logback-spring.xml
 ├── logs/
 │  
 └── eux-rina-irsync-5.6.2-SNAPSHOT.jar
 ```
-* download the eux-rina-irsync-5.6.2-SNAPSHOT.jar
-* download config/application.yml
+* download the eux-rina-irsync-5.6.2-SNAPSHOT.zip
+* unzip eux-rina-irsync-5.6.2-SNAPSHOT.zip somewhere on your RINA server to get above directory structure
 * adopt config/application.yml to your environment
 * run 
 ```bash
