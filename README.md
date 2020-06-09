@@ -114,7 +114,12 @@ update:
   wait: 240
 ```
 
-## 
+## small print
+
+* the installation of a new IR is a synchroneous CPI call to RINA, regardless of whether it comes from the Admin Portal or IR SYNC. IR is now so big, that unless you have a very, very fast RINA, the update takes much longer than the synchroneous call timeout configured in RINA (Apache LoadBalancer, etc.). So you might see a timeout error being returned and logged.
+ *do not worry* RINA continues to install the IR update successfully, and the next time you check, either by refreshing the Admin Portal page, or waiting for the next IR SYNC scheduled run, you will see that RINA has updated IR just fine.
+This behaviour of not supporting longrunning synchroneous CPI calls is known and reported to DG EMPL by both NO and DK.
+
 * eux-rina-irsync needs the RINA CPI SDK patches from ResourcesApi.path in order to work. They are included in the source here at
   eu.ec.dgempl.eessi... and compiled into the fat jar if you use e.g. maven install.
 
