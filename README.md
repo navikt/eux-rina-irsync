@@ -94,17 +94,27 @@ and eventually stuff like this
 03-01-2020 04:44:11.005 [qtp1630678941-20] INFO  no.nav.eux.rina.admin.rina.RinaCpiSynchronizationService.getInstitutionVersions -  UP TO DATE : NO:889640782 installedVersion 3.0.51687-20200103T032426 is GREATER THAN or EUQAL TO available 3.0.51687-20200103T032426
 ```
   
-## known shortcomings
+## new sync schedule
 
- IRSYNC scheduling cron expression
+ Up to RINA v5.4.3, an IR SYNC request to the AP returned either a new IR, or nothing in case there was no newer IR.
+ Since RINA v5.6.2, an IR SYNC request to the AP *always* returns the latest IR, regardless of whether it's newer than the one stated in the request. With previous versions of IR SYNC, this would quickly fill up the disks. 
+ Now, we request an IR SYNC three times, a quarter over 04, 05 and 06 o'clock every day. You can easily limit this further by changing the cron expression, i.e. "4-6" to "5" to just sync at 05:15 every day, which should be plenty.
+
+ IRSYNC now scheduled using cron expression in config/application.yml
  CSN pushes IR to APs at 4 CET/CEST, so polling for IR from RINA at 15 minutes past the hour between 4 and 6 o'clock is OK
+
+```
 cron:
   expression: 0 15 4-6 * * *
+```
 
- IRSYNC wait for new IR contents from AP in seconds
+ IRSYNC wait for new IR contents from AP in seconds now configured in config/application.yml
+```
 update:
   wait: 240
-  
+```
+
+## 
 * eux-rina-irsync needs the RINA CPI SDK patches from ResourcesApi.path in order to work. They are included in the source here at
   eu.ec.dgempl.eessi... and compiled into the fat jar if you use e.g. maven install.
 
