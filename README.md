@@ -23,7 +23,7 @@ eux-rina-irsync/
 * download the eux-rina-irsync-5.6.2-SNAPSHOT.zip
 * unzip eux-rina-irsync-5.6.2-SNAPSHOT.zip somewhere on your RINA server to get above directory structure
 * adopt config/application.yml to your environment
-* run 
+* run (we use RINA's Java 8 to run this)
 ```bash
 java -Djava.util.concurrent.ForkJoinPool.common.parallelism=16 -jar eux-rina-irsync-0.9.4-SNAPSHOT.jar
 ```
