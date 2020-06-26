@@ -33,6 +33,56 @@ If everything is setup correctly, you will first see this
 $ java -Djava.util.concurrent.ForkJoinPool.common.parallelism=16 -jar eux-rina-irsync-5.6.2-SNAPSHOT.jar
 12:04:08.156 [main] INFO no.nav.eux.rina.admin.EuxRinaIrSyncApplication - availableProcessors = 8
 12:04:08.172 [main] INFO no.nav.eux.rina.admin.EuxRinaIrSyncApplication - parallism of pool   = 16
+2020-06-26 09:48:26.687  INFO 9124 --- [           main] n.n.e.r.admin.EuxRinaIrSyncApplication   : The following profiles are active: local
+2020-06-26 09:48:29.398  INFO 9124 --- [           main] ptablePropertiesBeanFactoryPostProcessor : Post-processing PropertySource instances
+2020-06-26 09:48:29.505  INFO 9124 --- [           main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource configurationProperties [org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource] to AOP Proxy
+2020-06-26 09:48:29.510  INFO 9124 --- [           main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource servletConfigInitParams [org.springframework.core.env.PropertySource$StubPropertySource] to EncryptablePropertySourceWrapper
+2020-06-26 09:48:29.515  INFO 9124 --- [           main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource servletContextInitParams [org.springframework.core.env.PropertySource$StubPropertySource] to EncryptablePropertySourceWrapper
+2020-06-26 09:48:29.515  INFO 9124 --- [           main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2020-06-26 09:48:29.515  INFO 9124 --- [           main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableMapPropertySourceWrapper
+2020-06-26 09:48:29.515  INFO 9124 --- [           main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2020-06-26 09:48:29.515  INFO 9124 --- [           main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource applicationConfig: [classpath:/application-local.yaml] [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2020-06-26 09:48:29.515  INFO 9124 --- [           main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource applicationConfig: [classpath:/application.yaml] [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2020-06-26 09:48:29.515  INFO 9124 --- [           main] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource class path resource [application-local.secrets.properties] [org.springframework.core.io.support.ResourcePropertySource] to EncryptableMapPropertySourceWrapper
+2020-06-26 09:48:30.032  INFO 9124 --- [           main] org.eclipse.jetty.util.log               : Logging initialized @6693ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-06-26 09:48:30.394  INFO 9124 --- [           main] o.s.b.w.e.j.JettyServletWebServerFactory : Server initialized with port: 8080
+2020-06-26 09:48:30.404  INFO 9124 --- [           main] org.eclipse.jetty.server.Server          : jetty-9.4.24.v20191120; built: 2019-11-20T21:37:49.771Z; git: 363d5f2df3a8a28de40604320230664b9c793c16; jvm 1.8.0_241-b07
+2020-06-26 09:48:30.462  INFO 9124 --- [           main] o.e.j.s.h.ContextHandler.application     : Initializing Spring embedded WebApplicationContext
+2020-06-26 09:48:30.462  INFO 9124 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3691 ms
+2020-06-26 09:48:30.789  INFO 9124 --- [           main] c.u.j.r.DefaultLazyPropertyResolver      : Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+2020-06-26 09:48:30.794  INFO 9124 --- [           main] c.u.j.d.DefaultLazyPropertyDetector      : Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+2020-06-26 09:48:31.224  INFO 9124 --- [           main] org.eclipse.jetty.server.session         : DefaultSessionIdManager workerName=node0
+2020-06-26 09:48:31.224  INFO 9124 --- [           main] org.eclipse.jetty.server.session         : No SessionScavenger set, using defaults
+2020-06-26 09:48:31.224  INFO 9124 --- [           main] org.eclipse.jetty.server.session         : node0 Scavenging every 660000ms
+2020-06-26 09:48:31.243  INFO 9124 --- [           main] o.e.jetty.server.handler.ContextHandler  : Started o.s.b.w.e.j.JettyEmbeddedWebAppContext@53a84ff4{application,/,[file:///C:/Users/K114434/AppData/Local/Temp/jetty-docbase.5580008935191033928.8080/, jar:file:/C:/Users/K114434/.m2/repository/io/springfox/springfox-swagger-ui/2.9.2/springfox-swagger-ui-2.9.2.jar!/META-INF/resources],AVAILABLE}
+2020-06-26 09:48:31.243  INFO 9124 --- [           main] org.eclipse.jetty.server.Server          : Started @7902ms
+2020-06-26 09:48:31.277  INFO 9124 --- [           main] c.u.j.encryptor.DefaultLazyEncryptor     : String Encryptor custom Bean not found with name 'jasyptStringEncryptor'. Initializing Default String Encryptor
+2020-06-26 09:48:31.307  INFO 9124 --- [           main] c.u.j.encryptor.DefaultLazyEncryptor     : Encryptor config not found for property jasypt.encryptor.algorithm, using default value: PBEWithMD5AndDES
+2020-06-26 09:48:31.307  INFO 9124 --- [           main] c.u.j.encryptor.DefaultLazyEncryptor     : Encryptor config not found for property jasypt.encryptor.keyObtentionIterations, using default value: 1000
+2020-06-26 09:48:31.307  INFO 9124 --- [           main] c.u.j.encryptor.DefaultLazyEncryptor     : Encryptor config not found for property jasypt.encryptor.poolSize, using default value: 1
+2020-06-26 09:48:31.307  INFO 9124 --- [           main] c.u.j.encryptor.DefaultLazyEncryptor     : Encryptor config not found for property jasypt.encryptor.providerName, using default value: null
+2020-06-26 09:48:31.307  INFO 9124 --- [           main] c.u.j.encryptor.DefaultLazyEncryptor     : Encryptor config not found for property jasypt.encryptor.providerClassName, using default value: null
+2020-06-26 09:48:31.307  INFO 9124 --- [           main] c.u.j.encryptor.DefaultLazyEncryptor     : Encryptor config not found for property jasypt.encryptor.saltGeneratorClassname, using default value: org.jasypt.salt.RandomSaltGenerator
+2020-06-26 09:48:31.307  INFO 9124 --- [           main] c.u.j.encryptor.DefaultLazyEncryptor     : Encryptor config not found for property jasypt.encryptor.stringOutputType, using default value: base64
+2020-06-26 09:48:32.352  INFO 9124 --- [           main] e.e.d.eessi.rina.sdk.cpi.RinaCpiClient   : Building the Object Mapper
+2020-06-26 09:48:32.420  INFO 9124 --- [           main] e.e.d.eessi.rina.sdk.cpi.RinaCpiClient   : Building the Object Mapper
+2020-06-26 09:48:32.425  INFO 9124 --- [           main] e.e.d.eessi.rina.sdk.cpi.RinaCpiClient   : Building the Object Mapper
+2020-06-26 09:48:33.050  INFO 9124 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 5 endpoint(s) beneath base path '/actuator'
+2020-06-26 09:48:33.299  INFO 9124 --- [           main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2020-06-26 09:48:33.455  INFO 9124 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-26 09:48:33.719  INFO 9124 --- [           main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-06-26 09:48:33.753  INFO 9124 --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-06-26 09:48:33.812  INFO 9124 --- [           main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-06-26 09:48:33.895  INFO 9124 --- [           main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-06-26 09:48:34.246  INFO 9124 --- [           main] o.e.j.s.h.ContextHandler.application     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-06-26 09:48:34.251  INFO 9124 --- [           main] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-06-26 09:48:34.271  INFO 9124 --- [           main] o.s.web.servlet.DispatcherServlet        : Completed initialization in 20 ms
+2020-06-26 09:48:34.329  INFO 9124 --- [           main] n.n.e.r.admin.EuxRinaIrSyncApplication   : Started EuxRinaIrSyncApplication in 9.419 seconds (JVM running for 10.987)
+2020-06-26 09:48:34.334  INFO 9124 --- [           main] n.n.e.r.admin.EuxRinaIrSyncApplication   : availableProcessors = 4
+2020-06-26 09:48:34.334  INFO 9124 --- [           main] n.n.e.r.admin.EuxRinaIrSyncApplication   : parallism of pool   = 16
+2020-06-26 09:48:34.334  INFO 9124 --- [           main] n.n.e.r.admin.EuxRinaIrSyncApplication   : cron.expression = 0 0,50 4-11 * * *
+2020-06-26 09:48:34.334  INFO 9124 --- [           main] n.n.e.r.admin.EuxRinaIrSyncApplication   : update.wait = 240 seconds, which is 4 minutes
+2020-06-26 09:50:00.007  INFO 9124 --- [   scheduling-1] n.e.r.a.r.RinaAutomaticUpdatesController : running scheduled
 ```
 
 and eventually stuff like this
