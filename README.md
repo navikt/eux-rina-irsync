@@ -25,12 +25,12 @@ eux-rina-irsync/
 * adopt config/application.yml to your environment
 * run (we use RINA's Java 8 to run this)
 ```bash
-java -Djava.util.concurrent.ForkJoinPool.common.parallelism=16 -jar eux-rina-irsync-0.9.4-SNAPSHOT.jar
+java -Djava.util.concurrent.ForkJoinPool.common.parallelism=16 -jar eux-rina-irsync-5.6.2-SNAPSHOT.jar
 ```
 
 If everything is setup correctly, you will first see this
 ```bash
-$ java -Djava.util.concurrent.ForkJoinPool.common.parallelism=16 -jar eux-rina-irsync-0.9.4-SNAPSHOT.jar
+$ java -Djava.util.concurrent.ForkJoinPool.common.parallelism=16 -jar eux-rina-irsync-5.6.2-SNAPSHOT.jar
 12:04:08.156 [main] INFO no.nav.eux.rina.admin.EuxRinaIrSyncApplication - availableProcessors = 8
 12:04:08.172 [main] INFO no.nav.eux.rina.admin.EuxRinaIrSyncApplication - parallism of pool   = 16
 ```
