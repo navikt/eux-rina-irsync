@@ -83,17 +83,17 @@ and eventually stuff like this
  Now, we request an IR SYNC three times, a quarter over 04, 05 and 06 o'clock every day. You can easily limit this further by changing the cron expression, i.e. "4-6" to "5" to just sync at 05:15 every day, which should be plenty.
 
  IRSYNC now scheduled using cron expression in config/application.yml
- CSN pushes IR to APs at 4 CET/CEST, so polling for IR from RINA at 15 minutes past the hour between 4 and 6 o'clock is OK
+ CSN pushes IR to APs at 2 CET/CEST, so polling for IR from RINA at 30 minutes past the hour of 2 and 4 o'clock is OK
 
 ```
 cron:
-  expression: 0 15 4-6 * * *
+  expression: 0 30 2,4 * * *
 ```
 
  IRSYNC wait for new IR contents from AP in seconds now configured in config/application.yml
 ```
 update:
-  wait: 240
+  wait: 360
 ```
 
 ## small print
@@ -115,7 +115,7 @@ This behaviour of not supporting longrunning synchroneous CPI calls is known and
 
 * We use 
 ```
-nssm install IRSYNC "%JAVA_HOME%"\bin\java.exe -Djava.util.concurrent.ForkJoinPool.common.parallelism=16 -jar "%CD%\eux-rina-irsync-0.9.5-SNAPSHOT.jar"
+nssm install IRSYNC "%JAVA_HOME%"\bin\java.exe -Djava.util.concurrent.ForkJoinPool.common.parallelism=16 -jar "%CD%\eux-rina-irsync-5.6.2-SNAPSHOT.jar"
 
 nssm set IRSYNC AppDirectory "%CD%"
 
