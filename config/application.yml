@@ -1,7 +1,7 @@
 ### IRSYNC server properties ###
 server:
   address: 127.0.0.1
-  port: 9000
+  port: 8080
   forward-headers-strategy: native
   servlet:
     context-path: /
@@ -20,7 +20,7 @@ logging:
     file: .\config\logback-spring.xml
 
 
-  ### Spring properties ###
+### Spring properties ###
 spring:
   output:
   ansi:
@@ -34,9 +34,9 @@ management.endpoints.web.exposure.include: info, health, metrics, prometheus, co
 management.metrics.export.prometheus.enabled: true
 
 rina.tenants:
-  - institutionId: NO:889640782
-    casBaseUrl: http://localhost/eessiCas
-    cpiBaseUrl: http://localhost/eessiRest
+  - institutionId: NO:NAVT007
+    casBaseUrl: http://e34apvw007.devillo.no/eessiCas
+    cpiBaseUrl: http://e34apvw007.devillo.no/eessiRest
     adminuser: admin
     adminpwd: admin123
 
