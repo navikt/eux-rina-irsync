@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Configuration
 public class RinaTenantConfig {
-
+  
   @Bean
   public Map<String, RinaCpiSynchronizationService> rinaCpiSynchronizationsServiceMap(RinaTenantProperties rinaTenantProperties,
                                                                                       RinaCpiAuthenticationService rinaCpiAuthenticationService,

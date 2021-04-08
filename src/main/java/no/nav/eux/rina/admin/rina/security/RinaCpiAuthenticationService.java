@@ -1,7 +1,5 @@
 package no.nav.eux.rina.admin.rina.security;
 
-import static no.nav.eux.rina.admin.config.CacheConfig.CPI_SESSION_CACHE;
-
 import eu.ec.dgempl.eessi.rina.sdk.cpi.auth.CasAuthentication;
 import lombok.extern.slf4j.Slf4j;
 import no.nav.eux.rina.admin.config.RinaTenantProperties.RinaTenant;
@@ -11,13 +9,15 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import static no.nav.eux.rina.admin.config.CacheConfig.CPI_SESSION_CACHE;
+
 @Slf4j
 @Service
 public class RinaCpiAuthenticationService {
-
+  
   private static final String CAS_SERVICE_ID = "../portal/cas/cpi";
   private final RestTemplate restTemplate;
-
+  
   public RinaCpiAuthenticationService(RestTemplateBuilder restTemplateBuilder) {
     this.restTemplate = restTemplateBuilder.errorHandler(new RestTemplateResponseErrorHandler()).build();
   }

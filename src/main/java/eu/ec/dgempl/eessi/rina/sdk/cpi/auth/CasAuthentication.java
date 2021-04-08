@@ -2,19 +2,6 @@ package eu.ec.dgempl.eessi.rina.sdk.cpi.auth;
 
 import eu.ec.dgempl.eessi.sdk.cpi.auth.Authentication;
 import eu.ec.dgempl.eessi.sdk.cpi.model.UserDto;
-import java.net.URI;
-import java.security.SecureRandom;
-import java.security.cert.X509Certificate;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.KeyManager;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,8 +13,17 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.net.ssl.*;
+import java.net.URI;
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class CasAuthentication implements Authentication {
-  private static final Logger logger = LogManager.getLogger(Authentication.class);
   public static final String COOKIE_JSESSIONID = "JSESSIONID";
   public static final String COOKIE_XSRF_TOKEN = "XSRF-TOKEN";
   public static final String COOKIE_XSRF_TOKEN_HEADER = "X-Auth-Cookie";
@@ -37,6 +33,8 @@ public class CasAuthentication implements Authentication {
   public static final String PARAM_SERVICE = "service";
   public static final String PARAM_PASSWORD = "password";
   public static final String PARAM_USERNAME = "username";
+  private static final Logger logger = LogManager.getLogger(Authentication.class);
+  private final RestTemplate restTemplate;
   private String ticketGrantingTicket;
   private String jsessionId;
   private String xsrfToken;
@@ -46,7 +44,6 @@ public class CasAuthentication implements Authentication {
   private String casService;
   private String serviceBaseUrl;
   private UserDto authenticatedUser;
-  private final RestTemplate restTemplate;
   
   public CasAuthentication(String username, String password, String casHost, String casService, String serviceBaseUrl, RestTemplate restTemplate) {
     this.username = username;
@@ -88,14 +85,14 @@ public class CasAuthentication implements Authentication {
     logger.debug("Setting the authentication parameters.");
     this.setJsessionId(this.getCookieValue(result.getHeaders(), "JSESSIONID"));
     this.setXsrfToken(result.getHeaders().getFirst("X-Auth-Cookie"));
-    this.authenticatedUser = (UserDto)result.getBody();
+    this.authenticatedUser = (UserDto) result.getBody();
   }
   
   public void logout() {
     HttpHeaders headers = new HttpHeaders();
     headers.set("Cookie", String.format("%s=%s;%s=%s;", "JSESSIONID", this.getJsessionId(), "XSRF-TOKEN", this.getXsrfToken()));
     headers.set("X-Auth-Cookie", this.getXsrfToken());
-    HttpEntity<Void> request = new HttpEntity((Object)null, headers);
+    HttpEntity<Void> request = new HttpEntity((Object) null, headers);
     this.restTemplate.postForEntity(String.format("%s/logout", this.serviceBaseUrl), request, Void.class, new Object[0]);
     this.restTemplate.delete(String.format("%s/v1/tickets/%s", this.casHost, this.getTicketGrantingTicket()), new Object[0]);
   }
@@ -111,9 +108,9 @@ public class CasAuthentication implements Authentication {
         return null;
       }
       
-      String cookie = (String)var5.next();
+      String cookie = (String) var5.next();
       matcher = cookieNamePattern.matcher(cookie);
-    } while(!matcher.find());
+    } while (!matcher.find());
     
     return matcher.group(1);
   }
@@ -133,7 +130,7 @@ public class CasAuthentication implements Authentication {
     
     try {
       SSLContext sc = SSLContext.getInstance("SSL");
-      sc.init((KeyManager[])null, trustAllCerts, new SecureRandom());
+      sc.init((KeyManager[]) null, trustAllCerts, new SecureRandom());
       HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
     } catch (Exception var3) {
     }
@@ -168,8 +165,16 @@ public class CasAuthentication implements Authentication {
     return this.username;
   }
   
+  public void setUsername(String username) {
+    this.username = username;
+  }
+  
   public String getPassword() {
     return this.password;
+  }
+  
+  public void setPassword(String password) {
+    this.password = password;
   }
   
   public String getCasHost() {
@@ -178,14 +183,6 @@ public class CasAuthentication implements Authentication {
   
   public void setCasHost(String casHost) {
     this.casHost = casHost;
-  }
-  
-  public void setUsername(String username) {
-    this.username = username;
-  }
-  
-  public void setPassword(String password) {
-    this.password = password;
   }
   
   public UserDto getAuthenticatedUser() {
