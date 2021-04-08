@@ -2,6 +2,8 @@
 
 Small app offering scheduled RINA IR SYNC (and a REST API with Swagger) using RINA SDK.
 
+We finally have a new version which supports both RINA 2019 and RINA 2020 ready and will publish it later today, April 8th, 2021.
+
 ## main functionality
 
 * sync IR
