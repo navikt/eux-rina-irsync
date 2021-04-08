@@ -30,12 +30,10 @@ management.endpoints.web.exposure.include: info, health, metrics, prometheus, co
 management.metrics.export.prometheus.enabled: true
 
 rina.tenants:
-- institutionId: NO:NAVT002
-  casBaseUrl: https://rina-oppl-utv004.adeo.no/eessiCas
-  cpiBaseUrl: https://rina-oppl-utv004.adeo.no/eessiRest
-
-- institutionId: NO:NAVT003
-  casBaseUrl: https://rina-oppl-utv005.adeo.no/eessiCas
-  cpiBaseUrl: https://rina-oppl-utv005.adeo.no/eessiRest
+  - institutionId: NO:NAVT007
+    casBaseUrl: http://e34apvw007.devillo.no/eessiCas
+    cpiBaseUrl: http://e34apvw007.devillo.no/eessiRest
+    adminuser: supervisor
+    adminpwd: supervisor123
 
 logging.level.no.nav.eux: DEBUG
