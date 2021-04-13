@@ -13,7 +13,7 @@
 
   <groupId>no.nav.eux</groupId>
   <artifactId>eux-rina-irsync</artifactId>
-  <version>6.2.4-SNAPSHOT</version>
+  <version>6.2.5-SNAPSHOT</version>
   <name>eux-rina-irsync</name>
   <description>simple RINA IR SYNC automation</description>
   <packaging>jar</packaging>
@@ -41,11 +41,10 @@
       <artifactId>commons-lang3</artifactId>
       <version>${commons-lang3.version}</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
     <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
-      <version>1.9.3</version>
+      <version>[1.9.4,)</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -69,19 +68,16 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-cache</artifactId>
     </dependency>
-
     <dependency>
       <groupId>com.github.ulisesbocchio</groupId>
       <artifactId>jasypt-spring-boot-starter</artifactId>
       <version>2.0.0</version>
     </dependency>
-
     <dependency>
       <groupId>com.github.ben-manes.caffeine</groupId>
       <artifactId>caffeine</artifactId>
       <version>${caffeine.version}</version>
     </dependency>
-
     <dependency>
       <groupId>io.springfox</groupId>
       <artifactId>springfox-swagger2</artifactId>
@@ -93,12 +89,10 @@
       <version>${springfox.version}</version>
       <scope>compile</scope>
     </dependency>
-
     <dependency>
       <groupId>io.micrometer</groupId>
       <artifactId>micrometer-registry-prometheus</artifactId>
     </dependency>
-
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
@@ -108,11 +102,20 @@
       <artifactId>logstash-logback-encoder</artifactId>
       <version>${logstash-logback-encoder.version}</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>[2.10.5.1,)</version>
+    </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>2.10.3</version>
+      <version>[2.10.5.1,)</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>[2.10.5.1,)</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -127,14 +130,12 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/com.vdurmont/semver4j https://github.com/vdurmont/semver4j -->
+    <!-- https://github.com/vdurmont/semver4j -->
     <dependency>
       <groupId>com.vdurmont</groupId>
       <artifactId>semver4j</artifactId>
-      <!-- <version>2.2.0</version>  this is what's used in PROD now -->
       <version>3.1.0</version>
     </dependency>
-
 
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
@@ -204,12 +205,12 @@
     <repository>
       <id>m2internal</id>
       <name>NAV Maven2 Internal Repository</name>
-      <url>http://maven.adeo.no/nexus/content/repositories/m2internal</url>
+      <url>https://maven.adeo.no/nexus/content/repositories/m2internal</url>
     </repository>
     <snapshotRepository>
       <id>m2snapshot</id>
       <name>NAV Maven2 Snapshot Repository</name>
-      <url>http://maven.adeo.no/nexus/content/repositories/m2snapshot</url>
+      <url>https://maven.adeo.no/nexus/content/repositories/m2snapshot</url>
       <!-- Also updating http://maven.adeo.no/nexus/content/groups/public-snapshots (See settings.xml) -->
     </snapshotRepository>
   </distributionManagement>
