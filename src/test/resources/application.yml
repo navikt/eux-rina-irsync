@@ -1,7 +1,7 @@
 ### IRSYNC server properties ###
 server:
   address: 127.0.0.1
-  port: 9090
+  port: 8080
   forward-headers-strategy: native
   servlet:
     context-path: /
@@ -9,17 +9,18 @@ server:
 # IRSYNC scheduling cron expression
 # CSN pushes IR to APs at 4 CET/CEST, so polling for IR from RINA at 15 minutes past the hour between 4 and 6 o'clock is OK
 cron:
-  expression: 0 0/30 2,4,6,9 * * *
+  expression: 0 0/30 2-7 * * *
 
 # IRSYNC wait for new IR contents from AP in seconds
 update:
-  wait: 120
+  wait: 240
 
 logging:
-  config: file:./config/logback-spring.xml
+  config:
+    file: .\config\logback-spring.xml
 
 
-### Spring properties ###
+  ### Spring properties ###
 spring:
   output:
   ansi:

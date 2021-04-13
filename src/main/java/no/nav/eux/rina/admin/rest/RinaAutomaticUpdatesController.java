@@ -39,31 +39,31 @@ public class RinaAutomaticUpdatesController {
   private @Value ("${update.wait}")
   int waitInSeconds;
   
+  private @Value("${server.port}")
+  int serverPort;
+  
   public RinaAutomaticUpdatesController(Map<String, RinaCpiSynchronizationService> rinaCpiSynchronizationsServiceMap) {
     this.rinaCpiSynchronizationsServiceMap = rinaCpiSynchronizationsServiceMap;
   }
   
-  @Scheduled (cron = "${cron.expression}")  // run 15 minutes past the hour between 4 and 12  o'clock every day.
+  @Scheduled (cron = "${cron.expression}")
+  
   public void scheduledAutomaticUpdate() {
     log.info("running scheduled");
     RestTemplate restTemplate = restTemplateFactory.getObject();
-    ResponseEntity<Void> response = restTemplate.getForEntity("http://localhost:8080/rina/ir/silentUpdate", Void.class);
+    ResponseEntity<Void> response = restTemplate.getForEntity("http://localhost:"  + serverPort + "/rina/ir/silentUpdate", Void.class);
   }
   
   @ApiOperation (value = "Silent automatic update")
   @GetMapping ("/silentUpdate")
   public void silentUpdate() {
     log.info("calling automaticUpdate() ...");
-    // next two lines only test whether decryption of passwords works
-    // String ci = "NO:NAVT007";
-    // log.info("CI = " + ci + " ADM UN OW [" + getRinaCpiSynchronizationsService(ci).getUsernameAndPassword() +"]");
     automaticUpdate();
   }
   
   @ApiOperation (value = "Automatic update")
   @GetMapping ("/automaticUpdate")
   public ResponseEntity<Map<String, Map<String, String>>> automaticUpdate() {
-    //log.info("update wait period is {} seconds", waitInSeconds);
     int waitInMilliseconds = waitInSeconds * 1000;
   
     log.info("starting actual automaticUpdate()");
@@ -113,7 +113,6 @@ public class RinaAutomaticUpdatesController {
   @ApiOperation (value = "install new version in all institutions (if available)")
   @GetMapping ("/installNewInstitutionVersions")
   public ResponseEntity<Map<String, Map<String, String>>> installNewInstitutionVersion() {
-    //log.info("installNewInstitutionVersion");
     String resourceId = "dataorganisations";
     String resourceType = "organisation";
     
@@ -143,27 +142,20 @@ public class RinaAutomaticUpdatesController {
           resultCiVersions.put("AVAILABLE", availableVersion.toString());
           
           if (installedVersion.withClearedSuffixAndBuild().isLowerThan(availableVersion.withClearedSuffixAndBuild())) {
-            //log.info("CI: " + ci + " OUT OF DATE : availableVersion " + availableVersion + " is newer / greater than " + installedVersion);
             log.info("CI: " + ci + " Installing now... resource version: " + availableVersion);
             getRinaCpiSynchronizationsService(ci)
               .updateResource(resourceId, resourceType, availableVersion.toString());
-            
-            // getRinaCpiSynchronizationsService(institutionId).updateResource(resourceId, resourceType, resourceVersion);
-
-//            log.info("CI: " + ci + " Installed resourceId[" + resourceId + "] resourceType [" + resourceType + "] resourceVersion [" + availableVersion + "]");
           } else {
             //log.info("UP TO DATE : " + ci + " installedVersion " + installedVersion + " is GREATER THAN OR EQUAL TO available " + availableVersion);
           }
           return resultCiVersions;
         }));
-    //log.info("resultVersions : " + resultVersions);
     return new ResponseEntity<>(resultVersions, HttpStatus.OK);
   }
   
   @ApiOperation (value = "order new version to be made available for all institutions (no installation)")
   @GetMapping ("/orderNewInstitutionVersions")
   public ResponseEntity<Map<String, String>> orderNewInstitutionVersions() {
-//    log.info("orderNewInstitutionVersions");
     final String defaultVersion = "0.0.1";
     List<String> institutions = new ArrayList<>(rinaCpiSynchronizationsServiceMap.keySet());
     log.info("institutions = " + institutions);
@@ -172,13 +164,10 @@ public class RinaAutomaticUpdatesController {
       .collect(Collectors.toMap(
         Function.identity(),
         ci -> getCurrentIrVersionFromSYN002(getRinaCpiSynchronizationsService(ci).getInititalDocument())));
-//    log.info("ciVersions = " + ciVersions);
     ciVersions.forEach((k, v) -> log.info(("ciVersions: " + k + ":" + v)));
     ciVersions.forEach((ci, ver) -> {
       SyncInitialDocumentDto dto = getRinaCpiSynchronizationsService(ci).getInititalDocument();
       setIrVersionInSYN002(getRinaCpiSynchronizationsService(ci).getInititalDocument(), ver);
-//      log.info("dto0 [{}]", ToStringBuilder.reflectionToString(dto));
-//      log.info("dto1 [{}]", ToStringBuilder.reflectionToString(getRinaCpiSynchronizationsService(ci).getInititalDocument()));
       try {
         log.info("Requesting version [" + ver + "|as|" + getCurrentIrVersionFromSYN002(dto) + "] for CI [" + ci + "]");
         getRinaCpiSynchronizationsService(ci).submitDocumentIR(dto, defaultVersion);
@@ -190,14 +179,10 @@ public class RinaAutomaticUpdatesController {
   }
   
   private String getCurrentIrVersionFromSYN002(SyncInitialDocumentDto dto) {
-    //log.info("getCurrentIrVersionFromSYN002");
     String currentVersion = "0.0.1";
   
     try {
-//      log.info("gcvfs dto [{}]", ToStringBuilder.reflectionToString(dto));
-//      log.info("gcfvs typ [{}]", PropertyUtils.getProperty(dto, "initialDocument.SYN002.RequestForIRSync.currentVersion").getClass());
       currentVersion = (String) PropertyUtils.getProperty(dto, "initialDocument.SYN002.RequestForIRSync.currentVersion");
-//      log.info("gcvfs cv  [{}]", currentVersion);
     } catch (IllegalAccessException e) {
       log.error("IllegalAccessException " + e.getMessage());
     } catch (InvocationTargetException e) {
@@ -205,14 +190,11 @@ public class RinaAutomaticUpdatesController {
     } catch (NoSuchMethodException e) {
       log.error("NoSuchMethodException " + e.getMessage());
     }
-//    log.info("using PropertyUtils, IR has version [{}].", currentVersion);
     return currentVersion;
   }
   
   private void setIrVersionInSYN002(SyncInitialDocumentDto dto, String newVersion) {
-//    log.info("sIR [{}]", ToStringBuilder.reflectionToString(dto));
     String currentVersion = getCurrentIrVersionFromSYN002(dto);
-//    log.info("sIR curentVersion: [" + currentVersion + "] newVersion: [" + newVersion + "]");
   
     try {
       PropertyUtils.setProperty(dto, "initialDocument.SYN002.RequestForIRSync.currentVersion", newVersion);
@@ -223,12 +205,9 @@ public class RinaAutomaticUpdatesController {
     } catch (NoSuchMethodException e) {
       log.error("NoSuchMethodException " + e.getMessage());
     }
-//    log.info("SIRn [{}]", ToStringBuilder.reflectionToString(dto));
-//    log.info("sIRn oldVersion: [" + currentVersion + "] newVersion: [" + getCurrentIrVersionFromSYN002(dto) + "]");
   }
   
   private RinaCpiSynchronizationService getRinaCpiSynchronizationsService(String institutionId) {
-    //log.info("getRinaCpiSynchronizationsService({})", institutionId);
     return Optional.ofNullable(rinaCpiSynchronizationsServiceMap.get(institutionId))
       .orElseThrow(notFound("institutionId not found"));
   }

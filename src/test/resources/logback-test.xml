@@ -7,18 +7,13 @@
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>
-                %d{yyyy-MM-dd HH:mm:ss} %X{X-Nav-CallId} [%thread] %-5level %class{36}.%M %L - %msg%n
+                %d{yyyy-MM-dd HH:mm:ss} %X{X-Nav-CallId} [%thread] %-5level %logger{70} - %msg%n
             </Pattern>
         </layout>
     </appender>
     <appender name="SAVE-TO-FILE" class="ch.qos.logback.core.FileAppender">
         <file>${LOG_PATH}/eux-rina-irsync.log</file>
-        <layout class="ch.qos.logback.classic.PatternLayout">
-            <Pattern>
-                %d{yyyy-MM-dd HH:mm:ss} %X{X-Nav-CallId} [%thread] %-5level %class{36}.%M %L - %msg%n
-            </Pattern>
-        </layout>
-<!--        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>-->
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
     </appender>
 
     <root level="INFO">
