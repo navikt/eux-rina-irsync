@@ -4,26 +4,25 @@ Small app offering scheduled RINA IR SYNC (and a REST API with Swagger) using RI
 
 We finally have a new version, 6.2.5-SNAPSHOT, which supports both RINA 2019 and RINA 2020
 
-## bug?
-
-It seems that when changing cas.properties in RINA 2020, the new CAS_SERVICE_ID has to be passed.
-```java
-public class RinaCpiAuthenticationService {
-//RINA 2019: 
-private static final String CAS_SERVICE_ID = "../portal/cas/cpi";
-//RINA 2020: 
-private static final String CAS_SERVICE_ID = "../portal_new/cas/cpi";
-```
-We're currently investigating why this is and if we can easily tweak this in cas.properties, but we might also make this another tenant property and just make it configurable. 
-
-That would be our final release of this stream of IR SYNC. Soon™
-
 ## change log
 
-* working log to file, configured in config/application.yml and logback-spring.xml.
+* 6.2.6-SNAPSHOT CAS Service ID tenant property
+
+Some changes in CAS cas.properties may cause RINA 2020 to expose a different CAS service URL, relative to te CAS Base URL.
+We call this the CAS Service ID, and it is no longer hard-coded, but provided as a new property to be individually configured for each RINA.
+For 2019, the correct value is 
+```
+    casServiceId: ../portal/cas/cpi
+```bash
+For 2020, the 2019 value might work, or you can use this value
+```
+    casServiceId: ../portal_new/cas/cpi
+```bash
+
+* 6.2.5-SNAPSHOT working log to file, configured in config/application.yml and logback-spring.xml.
 NB If you have redirected stdout in NSSM so far, you will likely have to turn that off now.
 
-* working port change in application.yml
+* 6.2.5-SNAPSHOT working port change in application.yml
 If you want to run IR SYNC on a different port, you now can and it works ;-)
 
 ## main functionality
