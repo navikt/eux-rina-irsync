@@ -7,11 +7,13 @@ We finally have a new version, 6.2.5-SNAPSHOT, which supports both RINA 2019 and
 ## bug?
 
 It seems that when changing cas.properties in RINA 2020, the new CAS_SERVICE_ID has to be passed.
-
+```java
 public class RinaCpiAuthenticationService {
-RINA 2019: private static final String CAS_SERVICE_ID = "../portal/cas/cpi";
-RINA 2020: private static final String CAS_SERVICE_ID = "../portal_new/cas/cpi";
-
+//RINA 2019: 
+private static final String CAS_SERVICE_ID = "../portal/cas/cpi";
+//RINA 2020: 
+private static final String CAS_SERVICE_ID = "../portal_new/cas/cpi";
+```
 We're currently investigating why this is and if we can easily tweak this in cas.properties, but we might also make this another tenant property and just make it configurable. 
 
 That would be our final release of this stream of IR SYNC. Soon™
