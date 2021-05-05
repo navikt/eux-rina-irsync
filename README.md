@@ -11,18 +11,25 @@ We finally have a new version, 6.2.5-SNAPSHOT, which supports both RINA 2019 and
 Some changes in CAS cas.properties may cause RINA 2020 to expose a different CAS service URL, relative to te CAS Base URL.
 We call this the CAS Service ID, and it is no longer hard-coded, but provided as a new property to be individually configured for each RINA.
 For 2019, the correct value is 
-```
-    casServiceId: ../portal/cas/cpi
-```bash
-For 2020, the 2019 value might work, or you can use this value
-```
-    casServiceId: ../portal_new/cas/cpi
-```bash
 
-* 6.2.5-SNAPSHOT working log to file, configured in config/application.yml and logback-spring.xml.
+```
+casServiceId: ../portal/cas/cpi
+```
+
+For 2020, the 2019 value might work, or you can use this value
+
+```
+casServiceId: ../portal_new/cas/cpi
+```
+
+See config/application.yml. NAVAT07 is a RINA 2019, NAVAT08 is a RINA 2020 with a custom cas.properties (unrelated to IR SYNC)
+
+* 6.2.5-SNAPSHOT working log to file, configured in config/application.yml and logback-spring.xml
+
 NB If you have redirected stdout in NSSM so far, you will likely have to turn that off now.
 
 * 6.2.5-SNAPSHOT working port change in application.yml
+
 If you want to run IR SYNC on a different port, you now can and it works ;-)
 
 ## main functionality
