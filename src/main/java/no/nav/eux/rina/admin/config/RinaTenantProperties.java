@@ -19,6 +19,7 @@ public class RinaTenantProperties {
     
     private String institutionId;
     private String casBaseUrl;
+    private String casServiceId;
     private String cpiBaseUrl;
     private String adminuser;
     private String adminpwd;

@@ -14,8 +14,7 @@ import static no.nav.eux.rina.admin.config.CacheConfig.CPI_SESSION_CACHE;
 @Slf4j
 @Service
 public class RinaCpiAuthenticationService {
-  
-  private static final String CAS_SERVICE_ID = "../portal/cas/cpi";
+
   private final RestTemplate restTemplate;
   
   public RinaCpiAuthenticationService(RestTemplateBuilder restTemplateBuilder) {
@@ -28,7 +27,7 @@ public class RinaCpiAuthenticationService {
       username,
       password,
       rinaTenant.getCasBaseUrl(),
-      CAS_SERVICE_ID,
+      rinaTenant.getCasServiceId(),
       rinaTenant.getCpiBaseUrl(),
       restTemplate);
     casAuthentication.authenticate();

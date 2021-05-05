@@ -105,7 +105,13 @@ public class RinaCpiSynchronizationService {
   }
   
   public List<ResourceDto> getResources(String resourceLocation, Boolean hardRefresh, List<String> resourceIds) {
-    return resourcesApi.getResources(resourceLocation, hardRefresh, resourceIds);
+    List<ResourceDto> resourceDtoList = new ArrayList<ResourceDto>();
+    try {
+      resourceDtoList =  resourcesApi.getResources(resourceLocation, hardRefresh, resourceIds);
+    } catch  (RestClientException ex) {
+      log.error("Server error: [" + this.rinaTenant.getInstitutionId() + "] not responding to call in time: " + ex.toString());
+    }
+    return resourceDtoList;
   }
   
   public void updateResource(String resourceId, String resourceType, String resourceVersion) {
