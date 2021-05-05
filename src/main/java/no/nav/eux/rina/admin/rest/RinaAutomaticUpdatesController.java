@@ -123,8 +123,7 @@ public class RinaAutomaticUpdatesController {
         Function.identity(),
         ci -> {
           Map<String, String> resultCiVersions = new HashMap<>();
-          Semver syn002Version = new Semver(getCurrentIrVersionFromSYN002(getRinaCpiSynchronizationsService(ci)
-            .getInititalDocument()), Semver.SemverType.STRICT);
+          Semver syn002Version = new Semver(getCurrentIrVersionFromSYN002(getRinaCpiSynchronizationsService(ci).getInititalDocument()), Semver.SemverType.STRICT);
           resultCiVersions.put("SYN002", syn002Version.toString());
           
           ResourceDto installedDto = getRinaCpiSynchronizationsService(ci)
