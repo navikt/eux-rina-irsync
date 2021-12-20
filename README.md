@@ -2,7 +2,7 @@
 
 Small app offering scheduled RINA IR SYNC (and a REST API with Swagger) using RINA SDK.
 
-We finally have a new version, 6.2.5-SNAPSHOT, which supports both RINA 2019 and RINA 2020
+Since version 6.2.5-SNAPSHOT we supports both RINA 2019 and RINA 2020.
 
 ## change log
 
