@@ -1,8 +1,9 @@
 package no.nav.eux.rina.admin.config;
 
-import com.github.benmanes.caffeine.cache.Caffeine;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+
+import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.caffeine.CaffeineCache;

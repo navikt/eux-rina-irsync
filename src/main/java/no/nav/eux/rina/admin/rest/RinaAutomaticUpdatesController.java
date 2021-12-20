@@ -3,8 +3,6 @@ package no.nav.eux.rina.admin.rest;
 import com.vdurmont.semver4j.Semver;
 import eu.ec.dgempl.eessi.sdk.cpi.model.ResourceDto;
 import eu.ec.dgempl.eessi.sdk.cpi.model.SyncInitialDocumentDto;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import no.nav.eux.rina.admin.http.RestTemplateFactory;
 import no.nav.eux.rina.admin.rina.RinaCpiSynchronizationService;
@@ -27,7 +25,6 @@ import java.util.stream.Collectors;
 import static no.nav.eux.rina.admin.rest.ExceptionUtil.notFound;
 
 @Slf4j
-@Api (value = "Rina Automatic Updates", description = "Operations to sync, import and read new IR versions for Rina")
 @RestController
 @RequestMapping ("/rina/ir")
 
@@ -54,14 +51,14 @@ public class RinaAutomaticUpdatesController {
     ResponseEntity<Void> response = restTemplate.getForEntity("http://localhost:"  + serverPort + "/rina/ir/silentUpdate", Void.class);
   }
   
-  @ApiOperation (value = "Silent automatic update")
+  //@ApiOperation (value = "Silent automatic update")
   @GetMapping ("/silentUpdate")
   public void silentUpdate() {
     log.info("calling automaticUpdate() ...");
     automaticUpdate();
   }
   
-  @ApiOperation (value = "Automatic update")
+  //@ApiOperation (value = "Automatic update")
   @GetMapping ("/automaticUpdate")
   public ResponseEntity<Map<String, Map<String, String>>> automaticUpdate() {
     int waitInMilliseconds = waitInSeconds * 1000;
@@ -81,7 +78,7 @@ public class RinaAutomaticUpdatesController {
     return getInstitutionsAndVersionsMapResponseEntity();
   }
   
-  @ApiOperation (value = "list all institutions and their versions")
+  //@ApiOperation (value = "list all institutions and their versions")
   @GetMapping ("/listInstitutionsAndVersions")
   public ResponseEntity<Map<String, Map<String, String>>> listInstitutionsAndVersions() {
     return getInstitutionsAndVersionsMapResponseEntity();
@@ -110,7 +107,7 @@ public class RinaAutomaticUpdatesController {
     return new ResponseEntity<>(resultVersions, HttpStatus.OK);
   }
   
-  @ApiOperation (value = "install new version in all institutions (if available)")
+  //@ApiOperation (value = "install new version in all institutions (if available)")
   @GetMapping ("/installNewInstitutionVersions")
   public ResponseEntity<Map<String, Map<String, String>>> installNewInstitutionVersion() {
     String resourceId = "dataorganisations";
@@ -152,7 +149,7 @@ public class RinaAutomaticUpdatesController {
     return new ResponseEntity<>(resultVersions, HttpStatus.OK);
   }
   
-  @ApiOperation (value = "order new version to be made available for all institutions (no installation)")
+  //@ApiOperation (value = "order new version to be made available for all institutions (no installation)")
   @GetMapping ("/orderNewInstitutionVersions")
   public ResponseEntity<Map<String, String>> orderNewInstitutionVersions() {
     final String defaultVersion = "0.0.1";
