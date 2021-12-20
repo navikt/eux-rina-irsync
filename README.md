@@ -6,6 +6,10 @@ We finally have a new version, 6.2.5-SNAPSHOT, which supports both RINA 2019 and
 
 ## change log
 
+* 6.2.13-RELEASE log4j bumped to 2.17.0
+
+To address the log4shell vulnerability. 
+
 * 6.2.6-SNAPSHOT CAS Service ID tenant property
 
 Some changes in CAS cas.properties may cause RINA 2020 to expose a different CAS service URL, relative to te CAS Base URL.
