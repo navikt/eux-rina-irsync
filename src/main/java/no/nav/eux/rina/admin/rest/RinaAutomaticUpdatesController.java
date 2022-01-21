@@ -164,7 +164,7 @@ public class RinaAutomaticUpdatesController {
       SyncInitialDocumentDto dto = getRinaCpiSynchronizationsService(ci).getInitialDocument();
       setIrVersionInSYN002(getRinaCpiSynchronizationsService(ci).getInitialDocument(), ver);
       try {
-        log.info("Institution [{}] is configured with activeSubscription [{}]", ci, rinaCpiSynchronizationsServiceMap.get(ci).getActiveSubscription());
+        log.info("Institution [{}] is configured with activeSubscription [{}]", ci, rinaCpiSynchronizationsServiceMap.get(ci).getActiveSubscription() );
         log.info("Requesting version [" + ver + "|as|" + getCurrentIrVersionFromSYN002(dto) + "] for CI [" + ci + "]");
         getRinaCpiSynchronizationsService(ci).submitDocumentIR(dto, ver);
       } catch (Exception e) {
