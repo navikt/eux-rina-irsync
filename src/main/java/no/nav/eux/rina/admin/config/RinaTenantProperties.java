@@ -23,5 +23,6 @@ public class RinaTenantProperties {
     private String cpiBaseUrl;
     private String adminuser;
     private String adminpwd;
+    private Boolean activeSubscription;
   }
 }

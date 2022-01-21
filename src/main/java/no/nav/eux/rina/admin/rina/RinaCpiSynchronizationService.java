@@ -42,7 +42,7 @@ public class RinaCpiSynchronizationService {
   }
   
   @SneakyThrows
-  public SyncInitialDocumentDto getInititalDocument() {
+  public SyncInitialDocumentDto getInitialDocument() {
     SyncInitialDocumentDto syncInitialDocumentDto = syncApi.retrieveInitialDocumentIR();
     List<ResourceDto> resourceDtoList = resourcesApi.getResources("SERVER", true, Collections.singletonList("organisation"));
     resourceDtoList.sort(new Comparator<ResourceDto>() {
@@ -59,9 +59,9 @@ public class RinaCpiSynchronizationService {
     return syncInitialDocumentDto;
   }
   
-  public void submitDocumentIR(SyncInitialDocumentDto dto, String defaultVersion) {
+  public void submitDocumentIR(SyncInitialDocumentDto dto, String currentVersion) {
     try {
-      PropertyUtils.setProperty(dto, "initialDocument.SYN002.RequestForIRSync.currentVersion", defaultVersion);
+      PropertyUtils.setProperty(dto, "initialDocument.SYN002.RequestForIRSync.currentVersion", currentVersion);
     } catch (IllegalAccessException e) {
       log.error("IllegalAccessException " + e.getMessage());
     } catch (InvocationTargetException e) {
@@ -79,7 +79,7 @@ public class RinaCpiSynchronizationService {
   public Map<String, String> getInstitutionVersions() {
     String ci = rinaTenant.getInstitutionId();
     Map<String, String> resultCiVersions = new HashMap<>();
-    Semver syn002Version = new Semver(getCurrentIrVersionFromSYN002(getInititalDocument()), Semver.SemverType.STRICT);
+    Semver syn002Version = new Semver(getCurrentIrVersionFromSYN002(getInitialDocument()), Semver.SemverType.STRICT);
     resultCiVersions.put("SYN002", syn002Version.toString());
     
     ResourceDto installedDto = getResources("SERVER", true, Collections.singletonList("organisation")).stream()
@@ -108,6 +108,7 @@ public class RinaCpiSynchronizationService {
     List<ResourceDto> resourceDtoList = new ArrayList<ResourceDto>();
     try {
       resourceDtoList =  resourcesApi.getResources(resourceLocation, hardRefresh, resourceIds);
+      //resourcesApi.updateDiskResource();
     } catch  (RestClientException ex) {
       log.error("Server error: [" + this.rinaTenant.getInstitutionId() + "] not responding to call in time: " + ex.toString());
     }
@@ -127,6 +128,10 @@ public class RinaCpiSynchronizationService {
     String result = "[" + ci + "] un =[" + rinaTenant.getAdminuser() + "]  pw =[" + rinaTenant.getAdminpwd() + "]";
     log.info("rinaTenant.institutionId = " + result);
     return result;
+  }
+
+  public Boolean getActiveSubscription() {
+    return rinaTenant.getActiveSubscription();
   }
   
   private String getCurrentIrVersionFromSYN002(SyncInitialDocumentDto dto) {

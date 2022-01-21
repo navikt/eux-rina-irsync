@@ -120,7 +120,7 @@ public class RinaAutomaticUpdatesController {
         Function.identity(),
         ci -> {
           Map<String, String> resultCiVersions = new HashMap<>();
-          Semver syn002Version = new Semver(getCurrentIrVersionFromSYN002(getRinaCpiSynchronizationsService(ci).getInititalDocument()), Semver.SemverType.STRICT);
+          Semver syn002Version = new Semver(getCurrentIrVersionFromSYN002(getRinaCpiSynchronizationsService(ci).getInitialDocument()), Semver.SemverType.STRICT);
           resultCiVersions.put("SYN002", syn002Version.toString());
           
           ResourceDto installedDto = getRinaCpiSynchronizationsService(ci)
@@ -139,8 +139,7 @@ public class RinaAutomaticUpdatesController {
           
           if (installedVersion.withClearedSuffixAndBuild().isLowerThan(availableVersion.withClearedSuffixAndBuild())) {
             log.info("CI: " + ci + " Installing now... resource version: " + availableVersion);
-            getRinaCpiSynchronizationsService(ci)
-              .updateResource(resourceId, resourceType, availableVersion.toString());
+            getRinaCpiSynchronizationsService(ci).updateResource(resourceId, resourceType, availableVersion.toString());
           } else {
             //log.info("UP TO DATE : " + ci + " installedVersion " + installedVersion + " is GREATER THAN OR EQUAL TO available " + availableVersion);
           }
@@ -159,14 +158,15 @@ public class RinaAutomaticUpdatesController {
       .parallel()
       .collect(Collectors.toMap(
         Function.identity(),
-        ci -> getCurrentIrVersionFromSYN002(getRinaCpiSynchronizationsService(ci).getInititalDocument())));
+        ci -> getCurrentIrVersionFromSYN002(getRinaCpiSynchronizationsService(ci).getInitialDocument())));
     ciVersions.forEach((k, v) -> log.info(("ciVersions: " + k + ":" + v)));
     ciVersions.forEach((ci, ver) -> {
-      SyncInitialDocumentDto dto = getRinaCpiSynchronizationsService(ci).getInititalDocument();
-      setIrVersionInSYN002(getRinaCpiSynchronizationsService(ci).getInititalDocument(), ver);
+      SyncInitialDocumentDto dto = getRinaCpiSynchronizationsService(ci).getInitialDocument();
+      setIrVersionInSYN002(getRinaCpiSynchronizationsService(ci).getInitialDocument(), ver);
       try {
+        log.info("Institution [{}] is configured with activeSubscription [{}]", ci, rinaCpiSynchronizationsServiceMap.get(ci).getActiveSubscription());
         log.info("Requesting version [" + ver + "|as|" + getCurrentIrVersionFromSYN002(dto) + "] for CI [" + ci + "]");
-        getRinaCpiSynchronizationsService(ci).submitDocumentIR(dto, defaultVersion);
+        getRinaCpiSynchronizationsService(ci).submitDocumentIR(dto, ver);
       } catch (Exception e) {
         log.error("Could not submit IR sync request! " + e.getMessage());
       }

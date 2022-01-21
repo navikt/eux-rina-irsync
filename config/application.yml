@@ -39,6 +39,7 @@ rina.tenants:
     cpiBaseUrl: https://rina-ss1-q.adeo.no/eessiRest
     adminuser: admin
     adminpwd: ENC(nNbuzS7xZ/3M2UqCrfSeJgPRD1IKJk4r)
+    activeSubscription: false
 
   - institutionId: NO:NAVAT08
     casBaseUrl: https://rina-ss2-q.adeo.no/eessiCas
@@ -46,6 +47,7 @@ rina.tenants:
     cpiBaseUrl: https://rina-ss2-q.adeo.no/eessiRest
     adminuser: admin
     adminpwd: ENC(nNbuzS7xZ/3M2UqCrfSeJgPRD1IKJk4r)
+    activeSubscription: false
 
   - institutionId: NO:NAVAT05
     casBaseUrl: https://rina-ss3-q.adeo.no/eessiCas
@@ -53,6 +55,7 @@ rina.tenants:
     cpiBaseUrl: https://rina-ss3-q.adeo.no/eessiRest
     adminuser: admin
     adminpwd: ENC(nNbuzS7xZ/3M2UqCrfSeJgPRD1IKJk4r)
+    activeSubscription: false
 
   - institutionId: NO:NAVAT06
     casBaseUrl: https://rina-ss4-q.adeo.no/eessiCas
@@ -60,3 +63,4 @@ rina.tenants:
     cpiBaseUrl: https://rina-ss4-q.adeo.no/eessiRest
     adminuser: admin
     adminpwd: ENC(nNbuzS7xZ/3M2UqCrfSeJgPRD1IKJk4r)
+    activeSubscription: false

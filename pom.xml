@@ -13,7 +13,7 @@
 
     <groupId>no.nav.eux</groupId>
     <artifactId>eux-rina-irsync</artifactId>
-    <version>6.2.13-RELEASE</version>
+    <version>6.2.18-SNAPSHOT</version>
     <name>eux-rina-irsync</name>
     <description>simple RINA IR SYNC automation</description>
     <packaging>jar</packaging>
@@ -27,7 +27,7 @@
         <caffeine.version>2.6.2</caffeine.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <eessi-rina-cpi-sdk.version>5.6.3</eessi-rina-cpi-sdk.version>
-        <log4j2.version>2.17.0</log4j2.version>
+        <log4j2.version>2.17.1</log4j2.version>
         <logstash-logback-encoder.version>7.0.1</logstash-logback-encoder.version>
         <logback-classic.version>1.2.9</logback-classic.version>
     </properties>
@@ -71,6 +71,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
