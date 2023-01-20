@@ -13,7 +13,7 @@ cron:
 
 # IRSYNC wait for new IR contents from AP in seconds
 update:
-  wait: 180
+  wait: 360
 
 logging:
   config: file:./config/logback-spring.xml
