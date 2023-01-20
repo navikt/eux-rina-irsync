@@ -57,7 +57,7 @@ eux-rina-irsync/
 * download the eux-rina-irsync-6.2.5-SNAPSHOT.jar
 * adopt above directory structure
 * adopt config/application.yml to your environment
-* run (we use RINA's Java 8 to run this)
+* run (we use RINA's Java 11 to run this)
 ```bash
 java -Djasypt.encryptor.password=t8-secret -Djava.util.concurrent.ForkJoinPool.common.parallelism=16 -Dlogback.statusListenerClass=ch.qos.logback.core.status.OnConsoleStatusListener -jar eux-rina-irsync-6.2.4-SNAPSHOT.jar
 ```
