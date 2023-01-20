@@ -9,7 +9,7 @@ server:
 # IRSYNC scheduling cron expression
 # CSN pushes IR to APs at 4 CET/CEST, so polling for IR from RINA at 15 minutes past the hour between 4 and 6 o'clock is OK
 cron:
-  expression: 0 0/05 5-7 * * *
+  expression: 0 30 4 * * *
 
 # IRSYNC wait for new IR contents from AP in seconds
 update:
