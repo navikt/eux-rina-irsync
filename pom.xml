@@ -30,7 +30,7 @@
         <eessi-rina-cpi-sdk.version>5.6.3</eessi-rina-cpi-sdk.version>
         <log4j2.version>2.19.0</log4j2.version>
         <logstash-logback-encoder.version>7.2</logstash-logback-encoder.version>
-        <logback-classic.version>1.4.3</logback-classic.version>
+        <logback-classic.version>1.4.12</logback-classic.version>
     </properties>
 
     <dependencies>
